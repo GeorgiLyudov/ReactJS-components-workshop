@@ -18,19 +18,24 @@ const menuItems = [
 
 
 ]
-function Menu() {
+function Menu({
+  onMenuItemClick
+}) {
   const [currentItem, setCurrentItem] = useState();
-console.log(currentItem);
+  const menuItemClickHandler = (id) => {
+    setCurrentItem(id);
+    onMenuItemClick(id);
+  }
   return (
     <aside className="menu">
       {menuItems.map(x =>
-        <MenuItem 
-        key={x.id} 
-        id={x.id} 
-        isSelected = {x.id ==currentItem}
-        onClick={setCurrentItem}
+        <MenuItem
+          key={x.id}
+          id={x.id}
+          isSelected={x.id == currentItem}
+          onClick={menuItemClickHandler}
         >
-        {x.text}
+          {x.text}
         </MenuItem>
 
       )}
