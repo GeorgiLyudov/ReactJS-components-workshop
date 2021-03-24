@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { Route, Link, NavLink, Redirect, Switch } from 'react-router-dom';
 
 import * as postService from './services/postService';
 
@@ -7,6 +8,8 @@ import style from './App.module.css';
 import Header from './components/Header/Header';
 import Menu from './components/Menu/Menu';
 import Main from './components/Main/Main';
+import About from './components/About/About';
+import ContactUs from './components/ContactUs/ContactUs';
 
 // function App() {
 //   return (
@@ -50,10 +53,18 @@ class App extends Component {
       <div className={style.app}>
         <Header />
         <div className={style.container}>
-          <Menu
-            onMenuItemClick={this.onMenuItemClick.bind(this)}
-          />
-          <Main posts={this.getPosts()}/>
+          <Menu onMenuItemClick={this.onMenuItemClick.bind(this)}/>
+          <Switch>
+            {/* 3 ways of routing:  */}
+           {/* child components */}
+            <Route path="/" exact>
+              <Main posts={this.getPosts()} />
+            </Route>
+            {/* component =  */}
+            <Route path="/about" component={About} />
+            {/* render =  - this is useful when you're rendering a function directly (not a component)*/}
+            <Route path="/contact-us" render={ContactUs} />
+          </Switch>
         </div>
       </div>
     )
